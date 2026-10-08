@@ -8,12 +8,13 @@ A faire : Tout
 """
 
 import tkinter as tk
+import classes.balle as ba
 
 ecran = tk.Tk() # Create the main window
 ecran.title("Casse brique")
 
 ### taille ecran ###
-Jeu = tk.Canvas(ecran, width=800, height=800)
+Jeu = tk.Canvas(ecran, width=800, height=800, bg="black")
 Jeu.pack()
 
 vie = tk.StringVar(value="vie = 3")
@@ -24,7 +25,8 @@ score = tk.StringVar(value="score = 0")
 afficheScore = tk.Label(Jeu, textvariable=score, bg="black", fg="orange")
 afficheScore.place(x=700, y=10)
 
-
+balle = ba.Balle()
+boule0 = Jeu.create_oval(balle.coordX - balle.rayon, balle.coordY - balle.rayon, balle.coordX + balle.rayon, balle.coordY + balle.rayon, fill=balle.couleur)
 
 buttonQuit = tk.Button(ecran, text="Quitter", fg="red", command=ecran.destroy)
 buttonQuit.pack()
