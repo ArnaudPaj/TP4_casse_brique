@@ -9,7 +9,8 @@ class Balle():
     def __init__(self) -> None:
         self.rayon = 10
         self.coordX = 400
-        self.coordY = 400
+        self.coordY = 700
+        self.couleur = "red"
         
     def mouvement(self,nouvX,nouvY):
         """
