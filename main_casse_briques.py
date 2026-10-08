@@ -3,8 +3,8 @@
 """
 Created on Wed Sep 23 15:02:28 2026
 @author: Arnaud PAJANI - Ethan MAY
-Jeu de casse briques_ fichier tkinter
-A faire : Tous
+Jeu de casse briques | fichier tkinter
+A faire : Tout
 """
 
 import tkinter as tk
