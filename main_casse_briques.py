@@ -13,8 +13,16 @@ ecran = tk.Tk() # Create the main window
 ecran.title("Casse brique")
 
 ### taille ecran ###
-dimension = tk.Canvas(ecran, width=800, height=800)
-dimension.pack()
+Jeu = tk.Canvas(ecran, width=800, height=800)
+Jeu.pack()
+
+vie = tk.StringVar(value="vie = 3")
+afficheVie = tk.Label(Jeu, textvariable=vie, bg="black", fg="orange")
+afficheVie.place(x=10, y=10)
+
+score = tk.StringVar(value="score = 0")
+afficheScore = tk.Label(Jeu, textvariable=score, bg="black", fg="orange")
+afficheScore.place(x=700, y=10)
 
 
 
