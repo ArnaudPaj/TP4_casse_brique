@@ -25,8 +25,10 @@ score = tk.StringVar(value="score = 0")
 afficheScore = tk.Label(Jeu, textvariable=score, bg="black", fg="orange")
 afficheScore.place(x=700, y=10)
 
-balle = ba.Balle()
-boule0 = Jeu.create_oval(balle.coordX - balle.rayon, balle.coordY - balle.rayon, balle.coordX + balle.rayon, balle.coordY + balle.rayon, fill=balle.couleur)
+balle = ba.Balle(Jeu,ecran)
+balle.deplacement()
+
+
 
 buttonQuit = tk.Button(ecran, text="Quitter", fg="red", command=ecran.destroy)
 buttonQuit.pack()
