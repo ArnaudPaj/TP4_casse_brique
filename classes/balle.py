@@ -54,7 +54,6 @@ class Balle():
         
         self.coordX = self.coordX+self.DX
         self.coordY = self.coordY+self.DY
-        print(self.coordX,self.coordY)
         
         self.affiche.coords(self.nom,self.coordX-self.rayon,self.coordY-self.rayon,self.coordX+self.rayon,self.coordY+self.rayon) # affichage deplacement
         self.fenetre.after(50, self.deplacement)
