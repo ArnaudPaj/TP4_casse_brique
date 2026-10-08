@@ -5,22 +5,12 @@ Jeu de casse-briques | classe BriquePouvoir
 A faire : Tout
 """
 
-
-"""
-########## HERITIER DE BRIQUE ##########
-
-Propriétés de la classe:
-- taille
-
-
-Méthodes:
-
-"""
-
 from classes.briques.brique import Brique
 
+
 class BriquePouvoir(Brique):
-    def __init__(self, pDurabilite, pPouvoir, pEffets, pMobile) -> None:
+    def __init__(self, pPouvoir, pEffets, pMobile) -> None:
         self.durabilite = 1
         self.taille = "TBD" # To Be Determined
+        self.pouvoir = pPouvoir
 
