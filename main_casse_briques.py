@@ -9,6 +9,7 @@ A faire : Tout
 
 import tkinter as tk
 import classes.balle as ba
+import classes.joueur as jo
 
 ecran = tk.Tk() # Create the main window
 ecran.title("Casse brique")
@@ -28,7 +29,7 @@ afficheScore.place(x=700, y=10)
 balle = ba.Balle(Jeu,ecran)
 balle.deplacement()
 
-
+joueur = jo.Joueur(Jeu, ecran)
 
 buttonQuit = tk.Button(ecran, text="Quitter", fg="red", command=ecran.destroy)
 buttonQuit.pack()
