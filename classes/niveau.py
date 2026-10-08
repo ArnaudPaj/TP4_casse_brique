@@ -5,6 +5,33 @@ Jeu de casse-briques | classe Niveau
 A faire : Tout
 """
 
+
+
 class Niveau():
-    def __init__(self) -> None:
+    def __init__(self, pNumero) -> None:
+
         pass
+
+    def victoire(self):
+        valRen = False
+
+
+        return valRen
+
+    def defaite(self):
+        valRen = False
+        
+        
+        return valRen
+
+    def apparaitreBriques(self):
+        valRen = False
+        
+        
+        return valRen
+
+    def obtenirBriquesRestantes(self):
+        valRen = False
+        
+        
+        return valRen

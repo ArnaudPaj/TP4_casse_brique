@@ -12,7 +12,7 @@ A faire : Tout
 Propriétés de la classe:
 - taille
 - durabilité (aussi, dureté)
-- position
+- coord
 
 Méthodes:
 
@@ -21,21 +21,21 @@ De quelles données avons-nous besoin concernant la brique ?
 Quels opérations imposer à la brique ?
 ##########
 
-- getDurabilite
-- getPosition(X/Y) (2 fonctions)
+- obtenirDurabilite
+- obtenirCoord(X/Y) (2 fonctions)
 - estTouchee
 """
 
 class Brique():
-    def __init__(self, pDurabilite, pTaille, pPositionX, pPositionY) -> None:
+    def __init__(self, pDurabilite, pTaille, pCoordX, pCoordY) -> None:
         self.durabilite = 1
         self.taille = "TBD" # To Be Determined
-        self.positionX = pPositionX
-        self.positionY = pPositionY
+        self.coordX = pCoordX
+        self.coordY = pCoordY
 
 
 
-    def getDurabilite(self):
+    def obtenirDurabilite(self):
         """
             Entrée(s) : -
             Sortie(s) : durabilité (int)
@@ -45,18 +45,18 @@ class Brique():
         return self.durabilite
         pass
 
-    def getPositionX(self):
+    def obtenirCoordX(self):
         """
             Entrée(s) : -
-            Sortie(s) : positionX (int)
+            Sortie(s) : coordX (int)
             Algo : 
         """
         pass
 
-    def getPositionY(self):
+    def obtenirCoordY(self):
         """
             Entrée(s) : -
-            Sortie(s) : positionY (int)
+            Sortie(s) : coordY (int)
             Algo : 
         """
         pass
