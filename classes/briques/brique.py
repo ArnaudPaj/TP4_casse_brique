@@ -22,10 +22,8 @@ Quels opérations imposer à la brique ?
 ##########
 
 - getDurabilite
-- getPosition
-- supprimerBrique
+- getPosition(X/Y) (2 fonctions)
 - estTouchee
-
 """
 
 class Brique():
@@ -43,28 +41,22 @@ class Brique():
             Sortie(s) : durabilité (int)
             Algo : 
         """
+
+        return self.durabilite
         pass
 
     def getPositionX(self):
         """
-            Entrée(s) : 
-            Sortie(s) : 
+            Entrée(s) : -
+            Sortie(s) : positionX (int)
             Algo : 
         """
         pass
 
     def getPositionY(self):
         """
-            Entrée(s) : 
-            Sortie(s) : 
-            Algo : 
-        """
-        pass
-
-    def supprimerBrique(self):
-        """
             Entrée(s) : -
-            Sortie(s) : 
+            Sortie(s) : positionY (int)
             Algo : 
         """
         pass

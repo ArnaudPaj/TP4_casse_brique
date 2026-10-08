@@ -5,20 +5,8 @@ Jeu de casse-briques | classe BriqueMobile
 A faire : Tout
 """
 
-
-"""
-########## HERITIER DE BRIQUE ##########
-
-Propriétés de la classe:
-- taille
-
-
-Méthodes:
-
-"""
-
-
 from classes.briques.brique import Brique
+
 
 class BriqueMobile(Brique):
     def __init__(self, pDurabilite, pPouvoir, pEffets, pMobile) -> None:
