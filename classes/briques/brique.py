@@ -59,7 +59,6 @@ class Brique():
             Sortie(s) : True/False (Bool)
             Algo : 
         """
-
         pass
 
 

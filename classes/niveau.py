@@ -10,11 +10,12 @@ A faire : Tout
 from briques.brique import Brique
 
 class Niveau():
-    def __init__(self, pNumero, pNombreBriqueApparaitre, pTaille) -> None:
+    def __init__(self, pNumero, pNombreBriqueApparaitre, pTailleX, pTailleY) -> None:
         self.numero = pNumero # sera constante par instance
         self.NombreBriqueApparaitre = pNombreBriqueApparaitre # sera constante par instance
         self.briques = self.apparaitreBriques()
-        self.tailleX = 
+        self.tailleX = pTailleX
+        self.tailleY = pTailleY
 
     def estGagne(self):
         """
