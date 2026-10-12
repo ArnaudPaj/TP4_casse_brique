@@ -8,14 +8,15 @@ A faire : Tout
 
 
 from briques.brique import Brique
+from balle import Balle
 
 class Niveau():
-    def __init__(self, pNumero, pNombreBriqueApparaitre, pTailleX, pTailleY) -> None:
+    def __init__(self, pNumero, pNombreBriqueApparaitre) -> None:
         self.numero = pNumero # sera constante par instance
         self.NombreBriqueApparaitre = pNombreBriqueApparaitre # sera constante par instance
         self.briques = self.apparaitreBriques()
-        self.tailleX = pTailleX
-        self.tailleY = pTailleY
+        self.tailleX = 3
+        self.tailleY = 1
 
     def estGagne(self):
         """
@@ -25,13 +26,14 @@ class Niveau():
         """
         valRen = True
         briquesRestantes = self.obtenirBriquesRestantes(self.briques)
+
         for brique in briquesRestantes:
             if brique.estVivant():
                 valRen = False
 
         return valRen
 
-    def obtenirNombreBriqueApparaitre(self):
+    def obtenirNombreBriqueApparaitre(self): # fonction superflue ?
         return self.NombreBriqueApparaitre
 
     def apparaitreBriques(self):
@@ -40,20 +42,23 @@ class Niveau():
             Sortie(s) : -
             Algo :
         """
+
         valRen = []
-        instances = [Brique(100*i, 20*i, 5*i, 10*i) for i in range(self.NombreBriqueApparaitre)] # codé en dur 
+        instances = [Brique(100*i, 20*i, 5*i, 10*i) for i in range(self.NombreBriqueApparaitre)] # dimensions en dur, à changer 
         valRen = instances
         
         return valRen
 
     def obtenirBriquesRestantes(self, pListe):
         """
-            Entrée(s) : liste des briques et statut (list)
+            Entrée(s) : liste des briques (obj) et statut (int) (list)
             Sortie(s) : briques restantes (int)
             Algo : 
         """
+
         liste = pListe.copy()
         valRen = []
+        
         for brique in liste:
             if brique.estVivant():
                 valRen.append(brique)

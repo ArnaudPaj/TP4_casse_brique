@@ -9,7 +9,7 @@ import random as rd
 import math as ma
 
 class Balle():
-    def __init__(self, canvas,fenetre) -> None:
+    def __init__(self, canvas, fenetre) -> None:
         self.rayon = 10
         self.coordX = 400
         self.coordY = 700
@@ -22,7 +22,7 @@ class Balle():
         self.fenetre = fenetre
         self.nom = self.affiche.create_oval(self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY+self.rayon, fill=self.couleur)
         
-    def mouvement(self,nouvX,nouvY):
+    def mouvement(self, nouvX, nouvY):
         """
         entree : nouvX (int) / nouvY (int), nouvelle position de la balle
         sortie True / False, true si la balle est encore dans l'ecran
@@ -32,7 +32,7 @@ class Balle():
             self.coordX = nouvX
             self.coordY = nouvY
             return True
-        else : 
+        else: 
             return False
     
     def deplacement(self): # rebond sur les bords de l'ecran
@@ -55,6 +55,11 @@ class Balle():
         self.coordX = self.coordX+self.DX
         self.coordY = self.coordY+self.DY
         
-        self.affiche.coords(self.nom,self.coordX-self.rayon,self.coordY-self.rayon,self.coordX+self.rayon,self.coordY+self.rayon) # affichage deplacement
+        self.affiche.coords(self.nom, self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY + self.rayon) # affichage deplacement
         self.fenetre.after(50, self.deplacement)
 
+    def obtenirCoordX(self):
+        return self.coordX
+
+    def obtenirCoordY(self):
+        return self.coordY

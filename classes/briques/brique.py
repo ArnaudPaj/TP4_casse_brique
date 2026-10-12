@@ -6,6 +6,9 @@ A faire : Tout
 """
 
 
+from turtle import _PolygonCoords
+
+
 class Brique():
     def __init__(self, pLongueur, pLargeur, pCoordX, pCoordY) -> None:
         self.durabilite = 1
@@ -53,13 +56,19 @@ class Brique():
         return self.coordY
         pass
 
-    def estTouchee(self):
+    def estTouchee(self, pRayonBalle,  pCoordX, pCoordY):
         """
             Entrée(s) : Collision balle/brique
             Sortie(s) : True/False (Bool)
             Algo : 
         """
-        pass
+        valRen = False
+        # travailler avec les dimensions
+        # où est-ce qu'on prend notre origine ?
+        if True:
+            pass
+
+        return valRen
 
 
 def BonnesPratiques():
