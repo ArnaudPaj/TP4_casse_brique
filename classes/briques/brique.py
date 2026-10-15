@@ -6,14 +6,11 @@ A faire : Tout
 """
 
 
-from turtle import _PolygonCoords
-
-
 class Brique():
-    def __init__(self, pLongueur, pLargeur, pCoordX, pCoordY, canvas, fenetre) -> None:
+    def __init__(self, pCoordX, pCoordY, canvas, fenetre) -> None:
         self.durabilite = 1
-        self.taille = {"longueur":pLongueur,
-                       "largeur":pLargeur} # To Be Determined
+        self.taille = {"longueur":60,
+                       "largeur":30} # en dur
         self.coordX = pCoordX 
         self.coordY = pCoordY
         # deux lignes qui suivent sont en dur
@@ -55,7 +52,10 @@ class Brique():
         # travailler avec les dimensions
         # où est-ce qu'on prend notre origine ?
 
-        if 
+        briqueX1, briqueY1, briqueX2, briqueY2 = self.canvas.coords(self)
+        balleX1, balleY1, balleX2, balleY2 = self.canvas.coords(balle)
+        if (briqueX1 < balleX2 and briqueX2 > balleX1 and briqueY1 < balleY2 and briqueY2 > balleY1):
+            valRen = True
 
         return valRen
 

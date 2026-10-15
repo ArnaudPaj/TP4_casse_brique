@@ -59,7 +59,7 @@ class Balle():
 
     
 
-    def EstCollisionJoueur(self, joueur):
+    def estCollisionJoueur(self, joueur):
         joueurCoordX1 = joueur.coordX
         joueurCoordX2 = joueur.coordX + 100
         joueurCoordY1 = joueur.coordY
@@ -75,7 +75,8 @@ class Balle():
 
         return valRen
 
-    def EstCollisionBrique(self, brique):
-
+    def estCollisionBrique(self, brique):
+        pass
+    
     def toutesCollisions(self):
         pass
