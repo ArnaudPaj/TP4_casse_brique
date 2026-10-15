@@ -10,33 +10,56 @@ A faire : Tout
 import tkinter as tk
 import classes.balle as ba
 import classes.joueur as jo
+from interface import Interface
 
-ecran = tk.Tk() # Create the main window
-ecran.title("Casse brique")
-ecran.geometry("1920x1080") #You want the size of the app to be 500x500
 
-### taille ecran ###
-Jeu = tk.Canvas(ecran, width=1000, height=1000, bg="black")
-Jeu.pack()
-Jeu.focus_set() # Demander le focus pour que la fenêtre capture les touches
+class Main():
+    """
+    Constructeur de la partie
+    """
+    def __init__(self):
+        self.interface= Interface()
+        self.lBriques = []
+        self.Joueur = jo.Joueur(self.interface.Jeu, self.interface.ecran)
+        self.Balle = ba.Balle(self.interface.Jeu, self.interface.ecran)
+        self.vie = 3
+        self.score = 0
+        self.niveau = 1
+        self.immortel = False
+        self.dif = 1 #Niveau de difficulté
+        
+        # bouton_nouvelle_partie = Button(self.interface.frame_menu, text = 'Nouvelle partie', font= 'ROGFonts-Regular', command = self.start)
+        # bouton_nouvelle_partie.grid(row = 1, column = 0, padx = 15, pady = 15)
+        # label_vie = Label(self.interface.frame_data, text = '', font= 'ROGFonts-Regular', background = '#555555')
+        # label_vie.grid(row = 1, column = 0, padx = 15, pady = 15)
+        # label_score = Label(self.interface.frame_data, text = '', font= 'ROGFonts-Regular', background = '#555555')
+        # label_score.grid(row = 2, column = 0, padx = 15, pady = 15)
+        
+        self.interface.Jeu.focus_set() # Demander le focus pour que la fenêtre capture les touches
+        self.interface.Jeu.bind("<KeyPress>", lambda event: self.Clavier(event))
+        self.interface.ecran.mainloop() # execute la loop Tkinter
 
-vie = tk.StringVar(value="vie = 3")
-afficheVie = tk.Label(Jeu, textvariable=vie, bg="black", fg="orange")
-afficheVie.place(x=10, y=10)
+    def Clavier(self,event):
+        '''
+        Permet de déplacer le joueur et les autres interactions 
+        '''
+        touche_pressee = event.keysym
+        if touche_pressee == 'Escape':
+            self.interface.ecran.destroy()
+            
+        if touche_pressee == 'Left':
+            self.Joueur.dep_gauche()
+        
+        if touche_pressee == 'Right':
+            self.Joueur.dep_droit()
+        
+        if touche_pressee == 'i' :
+            self.immortel = True
+        
+        if touche_pressee == 'm' :
+            self.immortel = False
+        
+        if touche_pressee == 'n' :
+            self.niveau +=1
 
-score = tk.StringVar(value="score = 0")
-afficheScore = tk.Label(Jeu, textvariable=score, bg="black", fg="orange")
-afficheScore.place(x=900, y=10)
 
-balle = ba.Balle(Jeu,ecran)
-balle.deplacement()
-
-joueur = jo.Joueur(Jeu, ecran)
-
-Jeu.bind("<KeyPress>", lambda event: joueur.keyPress(event))
-Jeu.bind("<Escape>", lambda event: ecran.destroy())
-
-buttonQuit = tk.Button(ecran, text="Quitter", fg="red", command=ecran.destroy)
-buttonQuit.pack()
-
-ecran.mainloop() # execute la loop Tkinter

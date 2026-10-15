@@ -13,23 +13,10 @@ class Joueur():
         self.coordX = 450 # (Origine) coin haut à gauche
         self.coordY = 940 # (Origine) coin haut à droite
         self.couleur = "blue"
-        self.vie = 3
-        self.score = 0
         self.vitesse = 10
         self.canvas = canvas
         self.fenetre = fenetre
-        self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+100, self.coordY+20, fill=self.couleur) # 100*20 px
-        
-# ====================== Ecoute des entrees ===================== #
-    def keyPress(self, event):
-        if event.keysym == 'Right':
-            self.dep_droit()
-            
-        elif event.keysym == 'Left':
-            self.dep_gauche()
-                
-        elif event.keysym == 'i':
-            self.immortalite()
+        self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+100, self.coordY+20, fill=self.couleur) # 100*20 px 
         
 # ============================ Mouvement ======================== #
     def dep_gauche(self):
