@@ -13,6 +13,7 @@ from balle import Balle
 class Niveau():
     def __init__(self, pNumero, pNombreBriqueApparaitre) -> None:
         self.numero = pNumero # sera constante par instance
+        self.id = pNumero # alias
         self.NombreBriqueApparaitre = pNombreBriqueApparaitre # sera constante par instance
         self.briques = self.apparaitreBriques()
         self.tailleX = 3

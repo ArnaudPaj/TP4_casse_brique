@@ -10,8 +10,8 @@ A faire : Tout
 class Joueur():
     def __init__(self,canvas,fenetre):
         self.rayon = 10
-        self.coordX = 450
-        self.coordY = 940
+        self.coordX = 450 # (Origine) coin haut à gauche
+        self.coordY = 940 # (Origine) coin haut à droite
         self.couleur = "blue"
         self.vitesse = 10
         self.canvas = canvas
