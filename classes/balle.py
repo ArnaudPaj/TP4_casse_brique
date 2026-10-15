@@ -14,7 +14,7 @@ class Balle():
         self.coordX = 400
         self.coordY = 700
         self.couleur = "red"
-        self.vitesse = 10
+        self.vitesse = 8
         self.angle = rd.uniform(ma.pi, 2*ma.pi) # commence en allant vers les briques
         self.DX = self.vitesse*ma.cos(self.angle)
         self.DY = self.vitesse*ma.sin(self.angle)
@@ -36,6 +36,7 @@ class Balle():
             return False
     
     def deplacement(self): # rebond sur les bords de l'ecran
+    
         if self.coordX + self.rayon + self.DX > 790: # rebond à droite
             self.coordX = 2 * (800 - self.rayon) - self.coordX
             self.DX = -self.DX
