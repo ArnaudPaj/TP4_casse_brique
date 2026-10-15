@@ -10,14 +10,21 @@ from turtle import _PolygonCoords
 
 
 class Brique():
-    def __init__(self, pLongueur, pLargeur, pCoordX, pCoordY) -> None:
+    def __init__(self, pLongueur, pLargeur, pCoordX, pCoordY, canvas, fenetre) -> None:
         self.durabilite = 1
         self.taille = {"longueur":pLongueur,
                        "largeur":pLargeur} # To Be Determined
-        self.coordX = pCoordX
+        self.coordX = pCoordX 
         self.coordY = pCoordY
+        # deux lignes qui suivent sont en dur
+        self.coordX = 100
+        self.coordY = 200
+        self.couleur = "black"  # code en dur
+        self.canvas = canvas
+        self.fenetre = fenetre
+        self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+60, self.coordY+30, fill=self.couleur) # 60*30 px
 
-
+# ====================== VIE ===================== #
     def obtenirDurabilite(self):
         """
             Entrée(s) : -
@@ -25,7 +32,6 @@ class Brique():
             Algo : 
         """
         return self.durabilite
-        pass
 
     def estVivant(self):
         """
@@ -38,25 +44,8 @@ class Brique():
              valRen = True
         return valRen
 
-    def obtenirCoordX(self):
-        """
-            Entrée(s) : -
-            Sortie(s) : coordX (int)
-            Algo : 
-        """
-        return self.coordX
-        pass
-
-    def obtenirCoordY(self):
-        """
-            Entrée(s) : -
-            Sortie(s) : coordY (int)
-            Algo : 
-        """
-        return self.coordY
-        pass
-
-    def estTouchee(self, pRayonBalle,  pCoordX, pCoordY):
+# ====================== COLLISIONS ===================== #
+    def EstCollisionBalle(self, balle):
         """
             Entrée(s) : Collision balle/brique
             Sortie(s) : True/False (Bool)
@@ -65,8 +54,8 @@ class Brique():
         valRen = False
         # travailler avec les dimensions
         # où est-ce qu'on prend notre origine ?
-        if True:
-            pass
+
+        if 
 
         return valRen
 
