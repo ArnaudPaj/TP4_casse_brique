@@ -31,9 +31,7 @@ class Balle():
         if (0 < nouvX and nouvX < 800) and (0 < nouvY and nouvY < 800):
             self.coordX = nouvX
             self.coordY = nouvY
-            return True
-        else: 
-            return False
+        self.fenetre.after(5, self.deplacement)
     
     def deplacement(self): # rebond sur les bords de l'ecran
     
@@ -57,7 +55,7 @@ class Balle():
         self.coordY = self.coordY+self.DY
         
         self.affiche.coords(self.nom, self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY + self.rayon) # affichage deplacement
-        self.fenetre.after(50, self.deplacement)
+        self.fenetre.after(60, self.deplacement)
 
     def obtenirCoordX(self):
         return self.coordX
