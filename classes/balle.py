@@ -76,6 +76,7 @@ class Balle():
         return valRen
 
     def EstCollisionBrique(self, brique):
-
+        pass
+    
     def toutesCollisions(self):
         pass

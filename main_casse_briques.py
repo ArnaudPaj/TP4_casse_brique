@@ -10,34 +10,47 @@ A faire : Tout
 import tkinter as tk
 import classes.balle as ba
 import classes.joueur as jo
-from interface import Interface
-
+import classes.briques.brique as br
 
 class Main():
     """
     Constructeur de la partie
     """
     def __init__(self):
-        self.interface= Interface()
+        self.ecran = tk.Tk() # Create the main window
+        self.ecran.title("Casse brique")
+        self.ecran.geometry("1920x1080") #You want the size of the app to be 1920x1080
+
+        ### canvas ou on joue ###
+        self.Jeu = tk.Canvas(self.ecran, width=960, height=1080, bg="black")
+        self.Jeu.pack(side="right")
+        
+        ### canvas des paramètres ###
+        self.Data = tk.Canvas(self.ecran, width=960, height=1080, bg="black")
+        self.Data.pack(side="left")
+        
+        ### Donnee pour le jeu ###
         self.lBriques = []
-        self.Joueur = jo.Joueur(self.interface.Jeu, self.interface.ecran)
-        self.Balle = ba.Balle(self.interface.Jeu, self.interface.ecran)
+        self.Joueur = jo.Joueur(self.Jeu, self.ecran)
+        self.Balle = ba.Balle(self.Jeu, self.ecran)
         self.vie = 3
         self.score = 0
         self.niveau = 1
         self.immortel = False
         self.dif = 1 #Niveau de difficulté
         
-        # bouton_nouvelle_partie = Button(self.interface.frame_menu, text = 'Nouvelle partie', font= 'ROGFonts-Regular', command = self.start)
-        # bouton_nouvelle_partie.grid(row = 1, column = 0, padx = 15, pady = 15)
-        # label_vie = Label(self.interface.frame_data, text = '', font= 'ROGFonts-Regular', background = '#555555')
-        # label_vie.grid(row = 1, column = 0, padx = 15, pady = 15)
-        # label_score = Label(self.interface.frame_data, text = '', font= 'ROGFonts-Regular', background = '#555555')
-        # label_score.grid(row = 2, column = 0, padx = 15, pady = 15)
+        boutonPartie = tk.Button(self.Data, text ='Nouvelle partie', font= 'ROGFonts-Regular', fg="green", command = self.start)
+        boutonPartie.pack()
+        buttonQuitte = tk.Button(self.Data, text="Quitter", font= 'ROGFonts-Regular', fg="red", command=self.ecran.destroy)
+        buttonQuitte.pack()
+        label_vie = tk.Label(self.Data, text = 'vie : 0', font= 'ROGFonts-Regular', background = '#555555')
+        label_vie.pack()
+        label_score = tk.Label(self.Data, text = 'score : 0', font= 'ROGFonts-Regular', background = '#555555')
+        label_score.pack()
         
-        self.interface.Jeu.focus_set() # Demander le focus pour que la fenêtre capture les touches
-        self.interface.Jeu.bind("<KeyPress>", lambda event: self.Clavier(event))
-        self.interface.ecran.mainloop() # execute la loop Tkinter
+        self.Jeu.focus_set() # Demander le focus pour que la fenêtre capture les touches
+        self.Jeu.bind("<KeyPress>", lambda event: self.Clavier(event))
+        self.ecran.mainloop() # execute la loop Tkinter
 
     def Clavier(self,event):
         '''
@@ -45,7 +58,7 @@ class Main():
         '''
         touche_pressee = event.keysym
         if touche_pressee == 'Escape':
-            self.interface.ecran.destroy()
+            self.ecran.destroy()
             
         if touche_pressee == 'Left':
             self.Joueur.dep_gauche()
@@ -61,5 +74,15 @@ class Main():
         
         if touche_pressee == 'n' :
             self.niveau +=1
+    
+    def colision(self):
+        pass
 
-
+    def start(self):
+        """
+        appel -> pas lance la balle (condition press espace)
+                 affiche : espace pour commencer et mettre en pause la partie
+                 genere les briques sur le terrain
+        """
+        # pour test 
+        self.lBriques.append(br.Brique(100, 200, self.Jeu, self.ecran))

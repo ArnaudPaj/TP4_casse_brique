@@ -6,8 +6,6 @@ A faire : Tout
 """
 
 
-from turtle import _PolygonCoords
-
 
 class Brique():
     def __init__(self, pLongueur, pLargeur, pCoordX, pCoordY, canvas, fenetre) -> None:
@@ -19,10 +17,11 @@ class Brique():
         # deux lignes qui suivent sont en dur
         self.coordX = 100
         self.coordY = 200
-        self.couleur = "black"  # code en dur
+        self.couleur = "white"  # code en dur
         self.canvas = canvas
         self.fenetre = fenetre
         self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+60, self.coordY+30, fill=self.couleur) # 60*30 px
+        self.canvas.update()  # actualise le canvas
 
 # ====================== VIE ===================== #
     def obtenirDurabilite(self):
@@ -55,7 +54,8 @@ class Brique():
         # travailler avec les dimensions
         # où est-ce qu'on prend notre origine ?
 
-        if 
+        if True:
+            pass
 
         return valRen
 
