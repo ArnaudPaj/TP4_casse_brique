@@ -11,8 +11,8 @@ import math as ma
 class Balle():
     def __init__(self, canvas, fenetre) -> None:
         self.rayon = 10
-        self.coordX = 500
-        self.coordY = 900
+        self.coordX = 500 # X du centre
+        self.coordY = 900 # Y du centre
         self.couleur = "red"
         self.vitesse = 8
         self.angle = rd.uniform(ma.pi, 2*ma.pi) # commence en allant vers les briques
@@ -57,8 +57,25 @@ class Balle():
         self.affiche.coords(self.nom, self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY + self.rayon) # affichage deplacement
         self.fenetre.after(60, self.deplacement)
 
-    def obtenirCoordX(self):
-        return self.coordX
+    
 
-    def obtenirCoordY(self):
-        return self.coordY
+    def EstCollisionJoueur(self, joueur):
+        joueurCoordX1 = joueur.coordX
+        joueurCoordX2 = joueur.coordX + 100
+        joueurCoordY1 = joueur.coordY
+        joueurCoordY2 = joueur.coordY + 20
+        valRen = False
+
+        px = max(joueurCoordX1, min(self.coordX, joueurCoordX2)) # point le plus proche du cercle, dans le rectangle
+        py = max(joueurCoordY1, min(self.coordY, joueurCoordY2)) # idem pour Y
+
+        distCarre = (self.coordX-px) ** 2 + (self.coordY-py) ** 2 # distance euclidienne entre balle et rectangle
+        if distCarre <= self.rayon ** 2:
+            valRen = True
+
+        return valRen
+
+    def EstCollisionBrique(self, brique):
+
+    def toutesCollisions(self):
+        pass
