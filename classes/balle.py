@@ -11,8 +11,8 @@ import math as ma
 class Balle():
     def __init__(self, canvas, fenetre) -> None:
         self.rayon = 10
-        self.coordX = 400
-        self.coordY = 700
+        self.coordX = 500
+        self.coordY = 900
         self.couleur = "red"
         self.vitesse = 8
         self.angle = rd.uniform(ma.pi, 2*ma.pi) # commence en allant vers les briques
@@ -37,7 +37,7 @@ class Balle():
     
     def deplacement(self): # rebond sur les bords de l'ecran
     
-        if self.coordX + self.rayon + self.DX > 790: # rebond à droite
+        if self.coordX + self.rayon + self.DX > 990: # rebond à droite
             self.coordX = 2 * (800 - self.rayon) - self.coordX
             self.DX = -self.DX
         
@@ -45,7 +45,7 @@ class Balle():
             self.coordX = 2 * self.rayon - self.coordX
             self.DX = -self.DX
         
-        if self.coordY + self.rayon + self.DY > 790 : # rebond en bas
+        if self.coordY + self.rayon + self.DY > 990 : # rebond en bas
             self.coordY = 2 * (800 - self.rayon) - self.coordY
             self.DY = -self.DY
         

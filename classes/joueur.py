@@ -10,10 +10,50 @@ A faire : Tout
 class Joueur():
     def __init__(self,canvas,fenetre):
         self.rayon = 10
-        self.coordX = [350,450]
-        self.coordY = [740,760]
+        self.coordX = 450
+        self.coordY = 940
         self.couleur = "blue"
+        self.vie = 3
+        self.score = 0
         self.vitesse = 10
-        self.affiche = canvas
+        self.canvas = canvas
         self.fenetre = fenetre
-        self.nom = self.affiche.create_rectangle(self.coordX[0], self.coordY[0], self.coordX[1], self.coordY[1], fill=self.couleur) # 100*20 px
+        self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+100, self.coordY+20, fill=self.couleur) # 100*20 px
+        
+# ====================== Ecoute des entrees ===================== #
+    def keyPress(self, event):
+        if event.keysym == 'Right':
+            self.dep_droit()
+            
+        elif event.keysym == 'Left':
+            self.dep_gauche()
+                
+        elif event.keysym == 'i':
+            self.immortalite()
+        
+# ============================ Mouvement ======================== #
+    def dep_gauche(self):
+        if self.coordX > 11:
+            self.coordX -= self.vitesse
+            self.affiche()
+        
+    def dep_droit(self):
+        if self.coordX < 971:
+            self.coordX += self.vitesse
+            self.affiche()
+            
+    def affiche(self):
+        self.canvas.moveto(self.nom, self.coordX, self.coordY) # Nouveau deplacement
+        self.canvas.update()  # actualise le canvas
+        
+# ======================= gestion de la vie ===================== #
+    def immortalite(self):
+        self.vie = -1 # correspond à l'immortalite
+        
+    def perdeVie(self):
+        self.vie -= 1
+        
+# ============================ Score  =========================== #
+    def touche(self):
+        self.score += 10
+        
