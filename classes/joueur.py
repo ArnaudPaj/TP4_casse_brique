@@ -10,10 +10,10 @@ A faire : Tout
 class Joueur():
     def __init__(self,canvas,fenetre):
         self.rayon = 10
-        self.coordX = 200
-        self.coordY = 700
+        self.coordX = [350,450]
+        self.coordY = [740,760]
         self.couleur = "blue"
         self.vitesse = 10
         self.affiche = canvas
         self.fenetre = fenetre
-        self.nom = self.affiche.create_oval(self.coordX*2-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY+self.rayon, fill=self.couleur)
+        self.nom = self.affiche.create_rectangle(self.coordX[0], self.coordY[0], self.coordX[1], self.coordY[1], fill=self.couleur) # 100*20 px
