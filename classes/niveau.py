@@ -52,7 +52,7 @@ class Niveau():
         valRen = instances"""
 
         valRen = []
-        briqueModele = br.Brique(0, 0, "None", "None")
+        briqueModele = br.Brique(0, 0, self.canvas, self.fenetre)
         print(self.motif)
         if self.motif == "classique":
             # on va parcourir la liste comme une matrice
