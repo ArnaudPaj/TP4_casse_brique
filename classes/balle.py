@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Created on Wed Sep 23 15:02:28 2026
 @author: Arnaud PAJANI - Ethan MAY
@@ -15,7 +17,7 @@ class Balle():
         self.coordY = 900 # Y du centre
         self.couleur = "red"
         self.vitesse = 8
-        self.angle = rd.uniform(ma.pi, 2*ma.pi) # commence en allant vers les briques
+        self.angle = rd.uniform(5/4*ma.pi, 7/4*ma.pi) # commence en allant vers les briques
         self.DX = self.vitesse*ma.cos(self.angle)
         self.DY = self.vitesse*ma.sin(self.angle)
         self.affiche = canvas
@@ -33,7 +35,7 @@ class Balle():
             self.coordY = nouvY
         self.fenetre.after(5, self.deplacement)
     
-    def deplacement(self): # rebond sur les bords de l'ecran
+    def depMurs(self): # rebond sur les bords de l'ecran
     
         if self.coordX + self.rayon + self.DX > 990: # rebond à droite
             self.coordX = 2 * (800 - self.rayon) - self.coordX
@@ -43,19 +45,20 @@ class Balle():
             self.coordX = 2 * self.rayon - self.coordX
             self.DX = -self.DX
         
-        if self.coordY + self.rayon + self.DY > 990 : # rebond en bas
-            self.coordY = 2 * (800 - self.rayon) - self.coordY
-            self.DY = -self.DY
-        
         if self.coordY - self.rayon + self.DY < 10: # rebond en haut
             self.coordY = 2 * self.rayon - self.coordY
             self.DY = -self.DY
+            
+        # Conditione de perte de vie voir defaite // Rebond en bas
+        # if self.coordY + self.rayon + self.DY > 990 : 
+        #     self.coordY = 2 * (800 - self.rayon) - self.coordY
+        #     self.DY = -self.DY
         
-        self.coordX = self.coordX+self.DX
-        self.coordY = self.coordY+self.DY
+        self.coordX += self.DX
+        self.coordY += self.DY
         
         self.affiche.coords(self.nom, self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY + self.rayon) # affichage deplacement
-        self.fenetre.after(60, self.deplacement)
+        self.fenetre.after(60, self.depMurs)
 
     
 
@@ -75,11 +78,7 @@ class Balle():
 
         return valRen
 
-<<<<<<< HEAD
-    def EstCollisionBrique(self, brique):
-=======
     def estCollisionBrique(self, brique):
->>>>>>> 21697fc8033f85ec6dba37ad134f0e88e07c2204
         pass
     
     def toutesCollisions(self):

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Created on Wed Sep 23 15:02:28 2026
 @author: Arnaud PAJANI - Ethan MAY
@@ -5,11 +7,6 @@ Jeu de casse-briques | classe Brique
 A faire : Tout
 """
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 21697fc8033f85ec6dba37ad134f0e88e07c2204
 class Brique():
     def __init__(self, pCoordX, pCoordY, canvas, fenetre) -> None:
         self.durabilite = 1
@@ -27,13 +24,6 @@ class Brique():
         self.canvas.update()  # actualise le canvas
 
 # ====================== VIE ===================== #
-    def obtenirDurabilite(self):
-        """
-            Entrée(s) : -
-            Sortie(s) : durabilité (int)
-            Algo : 
-        """
-        return self.durabilite
 
     def estVivant(self):
         """
@@ -56,17 +46,12 @@ class Brique():
         valRen = False
         # travailler avec les dimensions
         # où est-ce qu'on prend notre origine ?
-
-<<<<<<< HEAD
         if True:
             pass
-=======
         briqueX1, briqueY1, briqueX2, briqueY2 = self.canvas.coords(self)
         balleX1, balleY1, balleX2, balleY2 = self.canvas.coords(balle)
         if (briqueX1 < balleX2 and briqueX2 > balleX1 and briqueY1 < balleY2 and briqueY2 > balleY1):
             valRen = True
->>>>>>> 21697fc8033f85ec6dba37ad134f0e88e07c2204
-
         return valRen
 
 
