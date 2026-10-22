@@ -31,7 +31,7 @@ class Main():
         self.Data.pack(side="left")
         
         ### Donnee pour le jeu ###
-        self.partie = False
+        self.partie = False # statut de la partie (true pour commencee, false sinon)
         self.lBriques = []
         self.Joueur = jo.Joueur(self.Jeu, self.ecran)
         self.dejaBalle = False
@@ -70,8 +70,12 @@ class Main():
             
         if touche_pressee == 'space':
             if self.partie:
-                print("Start moving ball")
+                print("Start casse brique")
                 self.Balle.deplacement()
+                print("partie started")
+                print("DX :", self.Balle.DX)
+                print("DY :", self.Balle.DY)
+                print("Vitesse :", self.Balle.vitesse)
             else:
                 # jeu nb rebonds
                 print("Start keep the ball")
@@ -79,6 +83,8 @@ class Main():
                 self.Balle.placeBalle()
                 self.dejaBalle = True
                 self.Balle.dep = True
+                print("dep = Vrai")
+                self.partie = False
                 self.Balle.deplacement()
                 
         if touche_pressee == 'i' :
@@ -103,8 +109,12 @@ class Main():
         self.lBriques.append(br.Brique(160, 200, self.Jeu, self.ecran))
 
     def gameStatus(self):
-        if self.vie == 0 :
-            self.perdu
+        while perdu != True:
+            if self.Balle.dep:
+                self.Balle.affichage()
+                self.fenetre.after(25, self.deplacement)
+            if self.vie == 0 :
+                self.perdu
     
     def Perdu(self):
         pass

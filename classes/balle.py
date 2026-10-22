@@ -37,6 +37,7 @@ class Balle():
         self.coordX = 500 # X du centre
         self.coordY = 900 # Y du centre
         self.dep = False
+        print("dep = Faux")
         """ deplace la balle """
         self.affiche.coords(self.nom, self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY + self.rayon)
         self.affiche.update()  # actualise le canvas
@@ -59,6 +60,7 @@ class Balle():
         
         if self.dep:
             self.affichage()
+            print("ca déplace....", self.nom)
             self.fenetre.after(25, self.deplacement)
     
     def rebondMurs(self): # rebond sur les bords de l'ecran
