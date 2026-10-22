@@ -18,7 +18,7 @@ class Brique():
         self.couleur = "white"  # code en dur
         self.canvas = canvas
         self.fenetre = fenetre
-        self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+60, self.coordY+20, fill=self.couleur, outline="black", width=10) # 60*30 px
+        self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+60, self.coordY+10, fill=self.couleur, outline="black", width=10) # 60*30 px
         self.canvas.update()  # actualise le canvas
 
 # ====================== VIE ===================== #
@@ -53,7 +53,12 @@ class Brique():
 
     def position(self):
         return self.coordX, self.coordY
-        
+
+    def affiche(self):
+        self.canvas.moveto(self.nom, self.coordX, self.coordY) # Nouveau deplacement
+        self.canvas.update()  # actualise le canvas
+        print("La brique ?")
+
 # Pour les copier/coller en respectant les bonnes pratiques 
 # def BonnesPratiques():
 #         """
