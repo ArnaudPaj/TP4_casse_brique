@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Created on Wed Sep 23 15:02:28 2026
 @author: Arnaud PAJANI - Ethan MAY
@@ -11,10 +13,9 @@ from briques.brique import Brique
 from balle import Balle
 
 class Niveau():
-    def __init__(self, pNumero, pNombreBriqueApparaitre) -> None:
+    def __init__(self, pNumero) -> None:
         self.numero = pNumero # sera constante par instance
-        self.id = pNumero # alias
-        self.NombreBriqueApparaitre = pNombreBriqueApparaitre # sera constante par instance
+        self.NombreBriqueMax = 25
         self.briques = self.apparaitreBriques()
         self.tailleX = 3
         self.tailleY = 1

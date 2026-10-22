@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Created on Wed Sep 23 15:02:28 2026
 @author: Arnaud PAJANI - Ethan MAY
@@ -23,13 +25,6 @@ class Brique():
         self.canvas.update()  # actualise le canvas
 
 # ====================== VIE ===================== #
-    def obtenirDurabilite(self):
-        """
-            Entrée(s) : -
-            Sortie(s) : durabilité (int)
-            Algo : 
-        """
-        return self.durabilite
 
     def estVivant(self):
         """
@@ -57,7 +52,6 @@ class Brique():
         balleX1, balleY1, balleX2, balleY2 = self.canvas.coords(balle)
         if (briqueX1 < balleX2 and briqueX2 > balleX1 and briqueY1 < balleY2 and briqueY2 > balleY1):
             valRen = True
-
         return valRen
 
 
