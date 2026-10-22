@@ -12,16 +12,13 @@ class Brique():
     def __init__(self, pCoordX, pCoordY, canvas, fenetre) -> None:
         self.durabilite = 1
         self.taille = {"longueur":60,
-                       "largeur":30} # en dur
+                       "largeur":20} # en dur
         self.coordX = pCoordX 
         self.coordY = pCoordY
-        # deux lignes qui suivent sont en dur
-        self.coordX = 100
-        self.coordY = 200
         self.couleur = "white"  # code en dur
         self.canvas = canvas
         self.fenetre = fenetre
-        self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+60, self.coordY+30, fill=self.couleur) # 60*30 px
+        self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+60, self.coordY+20, fill=self.couleur) # 60*20 px
         self.canvas.update()  # actualise le canvas
 
 # ====================== VIE ===================== #

@@ -13,10 +13,10 @@ class Joueur():
         self.coordX = 450 # (Origine) coin haut à gauche
         self.coordY = 940 # (Origine) coin haut à droite
         self.couleur = "blue"
-        self.vitesse = 10
+        self.vitesse = 12
         self.canvas = canvas
         self.fenetre = fenetre
-        self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+100, self.coordY+20, fill=self.couleur) # 100*20 px 
+        self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+100, self.coordY+20, fill=self.couleur, outline='black') # 100*20 px 
         
 # ======================== Mouvement/Position =================== #
     def dep_gauche(self):
@@ -35,6 +35,11 @@ class Joueur():
         
     def position(self):
         return self.coordX,self.coordY
+    
+    def placeJoueur(self):        
+        self.coordX = 450 # X du centre
+        self.coordY = 940 # Y du centre
+        self.affiche()
         
 # ======================= gestion de la vie ===================== #
     def immortalite(self):
@@ -45,5 +50,5 @@ class Joueur():
         
 # ============================ Score  =========================== #
     def touche(self):
-        self.score += 10
+        self.score += 50
         

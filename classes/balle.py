@@ -11,7 +11,7 @@ import random as rd
 import math as ma
 
 class Balle():
-    def __init__(self, canvas, fenetre) -> None:
+    def __init__(self, canvas, fenetre, joueur) -> None:
         self.rayon = 10
         self.coordX = 500 # X du centre
         self.coordY = 900 # Y du centre
@@ -22,26 +22,42 @@ class Balle():
         self.DY = self.vitesse*ma.sin(self.angle)
         self.affiche = canvas
         self.fenetre = fenetre
+        self.joueur = joueur
+        self.dep = False
         self.nom = self.affiche.create_oval(self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY+self.rayon, fill=self.couleur)
+        self.affiche.update()  # actualise le canvas
         
-    def mouvement(self):
-        """
-        entree : nouvX (int) / nouvY (int), nouvelle position de la balle
-        sortie True / False, true si la balle est encore dans l'ecran
         
-        """
-        if (0 < nouvX and nouvX < 800) and (0 < nouvY and nouvY < 800):
-            self.coordX = nouvX
-            self.coordY = nouvY
-        self.fenetre.after(5, self.deplacement)
-    
     def position(self):
         return self.coordX,self.coordY
     
-    def depMurs(self): # rebond sur les bords de l'ecran
+    def placeBalle(self):
+        """ Reset des donnees de la balle """
+        self.coordX = 500 # X du centre
+        self.coordY = 900 # Y du centre
+        """ deplace la balle """
+        self.affiche.coords(self.nom, self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY + self.rayon)
+        self.affiche.update()  # actualise le canvas
+        
+    def deplacement(self):
+        """
+        entree : None
+        sortie True / False, true si la balle est encore dans l'ecran
+        
+        """
+        self.coordX += self.DX
+        self.coordY += self.DY
+        self.rebondMurs()
+        if self.estCollisionJoueur():
+            self.rebondJoueur()
+        self.affichage()
+        if self.dep:
+            self.fenetre.after(25, self.deplacement)
     
-        if self.coordX + self.rayon + self.DX > 990: # rebond à droite
-            self.coordX = 2 * (800 - self.rayon) - self.coordX
+    def rebondMurs(self): # rebond sur les bords de l'ecran
+    
+        if self.coordX + self.rayon + self.DX > 950: # rebond à droite
+            self.coordX = 2 * (960 - self.rayon) - self.coordX
             self.DX = -self.DX
         
         if self.coordX - self.rayon + self.DX < 10: # rebond à gauche
@@ -53,23 +69,35 @@ class Balle():
             self.DY = -self.DY
             
         # Conditione de perte de vie voir defaite // Rebond en bas
-        # if self.coordY + self.rayon + self.DY > 990 : 
-        #     self.coordY = 2 * (800 - self.rayon) - self.coordY
+        # if self.coordY + self.rayon + self.DY > 950 : 
+        #     self.coordY = 2 * (960 - self.rayon) - self.coordY
         #     self.DY = -self.DY
         
         self.coordX += self.DX
         self.coordY += self.DY
+
+    def rebondJoueur(self):
+        if self.coordY + self.rayon + self.DY > 950 : 
+            self.coordY = 2 * (960 - self.rayon) - self.coordY
+            self.DY = -self.DY
+        self.coordX += self.DX
+        self.coordY += self.DY
         
+    def rebondBrique(self):
+        self.coordX += self.DX
+        self.coordY += self.DY
+            
+        
+    def affichage(self):
         self.affiche.coords(self.nom, self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY + self.rayon) # affichage deplacement
-        self.fenetre.after(20, self.depMurs)
+        self.affiche.update()  # actualise le canvas
 
-    
 
-    def estCollisionJoueur(self, joueur):
-        joueurCoordX1 = joueur.coordX
-        joueurCoordX2 = joueur.coordX + 100
-        joueurCoordY1 = joueur.coordY
-        joueurCoordY2 = joueur.coordY + 20
+    def estCollisionJoueur(self):
+        joueurCoordX1 = self.joueur.coordX
+        joueurCoordX2 = self.joueur.coordX + 100
+        joueurCoordY1 = self.joueur.coordY
+        joueurCoordY2 = self.joueur.coordY + 20
         valRen = False
 
         px = max(joueurCoordX1, min(self.coordX, joueurCoordX2)) # point le plus proche du cercle, dans le rectangle
@@ -82,7 +110,4 @@ class Balle():
         return valRen
 
     def estCollisionBrique(self, brique):
-        pass
-
-    def toutesCollisions(self):
         pass

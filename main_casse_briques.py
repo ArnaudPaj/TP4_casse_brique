@@ -34,20 +34,21 @@ class Main():
         self.partie = False
         self.lBriques = []
         self.Joueur = jo.Joueur(self.Jeu, self.ecran)
-        self.Balle = ba.Balle(self.Jeu, self.ecran)
+        self.dejaBalle = False
+        self.Balle = ba.Balle(self.Jeu, self.ecran, self.Joueur)
         self.vie = 3
         self.score = 0
         self.immortel = False
         self.dif = 1 #Niveau de difficulté
         
         label_vie = tk.Label(self.Data, text = 'vie : 3', font= 'ROGFonts-Regular')
-        label_vie.pack()
+        label_vie.place(x=0,y=0)
         label_score = tk.Label(self.Data, text = 'score : 0', font= 'ROGFonts-Regular')
-        label_score.pack()
+        label_score.place(x=820,y=0)
         boutonPartie = tk.Button(self.Data, text ='Nouvelle partie', font= 'ROGFonts-Regular', fg="green", command = self.start)
-        boutonPartie.pack()
+        boutonPartie.place(x=415,y=1000)
         buttonQuitte = tk.Button(self.Data, text="Quitter", font= 'ROGFonts-Regular', fg="red", command=self.ecran.destroy)
-        buttonQuitte.pack()
+        buttonQuitte.place(x=450,y=1040)
         
         self.Jeu.focus_set() # Demander le focus pour que la fenêtre capture les touches
         self.Jeu.bind("<KeyPress>", lambda event: self.clavier(event))
@@ -63,16 +64,21 @@ class Main():
             
         if touche_pressee == 'Left':
             self.Joueur.dep_gauche()
-        
+            
         if touche_pressee == 'Right':
             self.Joueur.dep_droit()
             
         if touche_pressee == 'space':
             if self.partie:
-                self.Balle.depMurs()
+                print("Start moving ball")
+                self.Balle.deplacement()
             else:
                 # jeu nb rebonds
-                self.Balle.depMurs()
+                print("Start keep the ball")
+                self.Joueur.placeJoueur()
+                self.Balle.placeBalle()
+                self.dejaBalle = True
+                self.Balle.deplacement()
                 
         if touche_pressee == 'i' :
             self.immortel = True
@@ -94,8 +100,10 @@ class Main():
         """
         # pour test 
         self.partie = True
+        self.Balle.placeBalle()
         self.lBriques.append(br.Brique(100, 200, self.Jeu, self.ecran))
-        
+        self.lBriques.append(br.Brique(160, 200, self.Jeu, self.ecran))
+
     def gameStatus(self):
         if self.vie == 0 :
             self.perdu
