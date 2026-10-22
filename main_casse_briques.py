@@ -78,6 +78,7 @@ class Main():
                 self.Joueur.placeJoueur()
                 self.Balle.placeBalle()
                 self.dejaBalle = True
+                self.Balle.dep = True
                 self.Balle.deplacement()
                 
         if touche_pressee == 'i' :
@@ -88,9 +89,6 @@ class Main():
         
         if touche_pressee == 'n' :
             self.niveau +=1
-    
-    def colision(self):
-        pass
 
     def start(self):
         """

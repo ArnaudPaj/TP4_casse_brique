@@ -103,10 +103,10 @@ class Niveau():
 
 # test()
 
-def test2():
-    niveau = Niveau(1, "classique", "Hello", "gg")
-    res = niveau.genererBriques()
-    print(res)
-    print(len(res))
+# def test2():
+#     niveau = Niveau(1, "classique", "Hello", "gg")
+#     res = niveau.genererBriques()
+#     print(res)
+#     print(len(res))
 
-test2()
+# test2()

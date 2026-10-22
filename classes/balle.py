@@ -24,7 +24,7 @@ class Balle():
         self.canvas = self.affiche # alias pour self.affiche
         self.fenetre = fenetre
         self.joueur = joueur
-        self.dep = False
+        self.dep = False # condition permettant d'arreter le deplacement au moment ou l'on reset la balle
         self.nom = self.affiche.create_oval(self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY+self.rayon, fill=self.couleur)
         self.affiche.update()  # actualise le canvas
         
@@ -36,6 +36,7 @@ class Balle():
         """ Reset des donnees de la balle """
         self.coordX = 500 # X du centre
         self.coordY = 900 # Y du centre
+        self.dep = False
         """ deplace la balle """
         self.affiche.coords(self.nom, self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY + self.rayon)
         self.affiche.update()  # actualise le canvas
@@ -49,10 +50,15 @@ class Balle():
         self.coordX += self.DX
         self.coordY += self.DY
         self.rebondMurs()
-        if self.estCollisionJoueur():
+        
+        if self.estCollisionJoueur(self.joueur):
             self.rebondJoueur()
-        self.affichage()
+            
+        # elif self.estCollisionBrique():
+        #     self.rebondBrique()    
+        
         if self.dep:
+            self.affichage()
             self.fenetre.after(25, self.deplacement)
     
     def rebondMurs(self): # rebond sur les bords de l'ecran
@@ -95,29 +101,20 @@ class Balle():
 
 
 
-    def estCollisionJoueur(self):
+    def estCollisionJoueur(self, joueur):
         joueurCoordX1 = self.joueur.coordX
         joueurCoordX2 = self.joueur.coordX + 100
         joueurCoordY1 = self.joueur.coordY
         joueurCoordY2 = self.joueur.coordY + 20
-
-    def estCollisionJoueur(self, joueur):
-        """ joueurCoordX1 = joueur.coordX
-        joueurCoordX2 = joueur.coordX + 100
-        joueurCoordY1 = joueur.coordY
-        joueurCoordY2 = joueur.coordY + 20
->>>>>>> fc92bcdf4b6028cea013a4170ca1f89795f34b5d
         valRen = False
-
         px = max(joueurCoordX1, min(self.coordX, joueurCoordX2)) # point le plus proche du cercle, dans le rectangle
         py = max(joueurCoordY1, min(self.coordY, joueurCoordY2)) # idem pour Y
 
         distCarre = (self.coordX-px) ** 2 + (self.coordY-py) ** 2 # distance euclidienne entre balle et rectangle
         if distCarre <= self.rayon ** 2:
-            valRen = True """
-
-
-        return self.affiche.find_overlapping(*self.affiche.coords(self))
+            valRen = True 
+        
+        return valRen
 
     def estCollisionBrique(self, brique):
 
@@ -125,13 +122,12 @@ class Balle():
         balleX1, balleY1, balleX2, balleY2 = self.canvas.coords(self) # Idem pour l'ellipse (le cercle)
         if (briqueX1 < balleX2 and briqueX2 > balleX1 and briqueY1 < balleY2 and briqueY2 > balleY1):
             valRen = True """ # obsolète ? Utiliser canvas.find_overlapping(*coordObjetQuiToucheNotreObjet)
-        
-        # si le tuple est vide, pas d'overlapping, sinon, overlapping (collision)           
+            
+        # si le tuple est vide, pas d'overlapping, sinon, overlapping (collision)  
         return self.affiche.find_overlapping(*self.affiche.coords(self))
 
     def toutesCollisions(self):
         valRen = False
-        if self.estCollisionBrique(self) != () or self.estCollisionJoueur(self) == (1):
+        if self.estCollisionBrique() != () or self.estCollisionJoueur(self.joueur) == (1):
             valRen = True
-
         return valRen
