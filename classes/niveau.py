@@ -10,12 +10,19 @@ A faire : Tout
 import classes.briques.brique as br
 
 class Niveau():
-    def __init__(self, pNumero) -> None:
+    def __init__(self, pNumero, motif, canvas, fenetre) -> None:
         self.numero = pNumero # sera constante par instance
-        self.NombreBriqueMax = 25
-        self.briques = self.apparaitreBriques()
-        self.tailleX = 3
-        self.tailleY = 1
+        self.NombreBriqueMax = 16*4 # codé en dur, nb max de briques sur l'ecran
+        self.NombreBriqueParLigne = 960 // 60 # codé en dur, se référer à la taille d'une brique (normalisé)
+        self.NombreColonnes = self.NombreBriqueMax // self.NombreBriqueParLigne
+        self.NombreBriqueApparaitre = self.NombreBriqueMax # alias pour NombreBriqueMax
+        self.motif = "classique" # codé en dur "classique", voir d'autres types
+        self.canvas = canvas
+        self.fenetre = fenetre
+        self.briques = self.genererBriques() # instancie classe brique dans une liste, il y a NombreBriqueMax éléments dans la liste
+                
+        # self.tailleX = 3
+        # self.tailleY = 1
 
     def estGagne(self):
         """
@@ -23,8 +30,9 @@ class Niveau():
             Sortie(s) : True/False (bool)
             Algo :
         """
+
         valRen = True
-        briquesRestantes = self.obtenirBriquesRestantes(self.briques)
+        briquesRestantes = self.obtenirBriquesRestantes()
 
         for brique in briquesRestantes:
             if brique.estVivant():
@@ -32,21 +40,30 @@ class Niveau():
 
         return valRen
 
-    def obtenirNombreBriqueApparaitre(self): # fonction superflue ?
-        return self.NombreBriqueApparaitre
-
-    def apparaitreBriques(self):
+    def genererBriques(self): # génère les briques dans une liste et les fait apparaitre
         """
             Entrée(s) : -
             Sortie(s) : -
             Algo :
         """
 
-        valRen = []
+        """valRen = []
         instances = [Brique(80*i, 20*i, self.canvas, self.fenetre) for i in range(self.NombreBriqueApparaitre)] # dimensions en dur, à changer 
-        valRen = instances
+        valRen = instances"""
+
+        valRen = []
+        briqueModele = br.Brique(0, 0, self.canvas, self.fenetre)
+        print(self.motif)
+        if self.motif == "classique":
+            # on va parcourir la liste comme une matrice
+            for i in range(self.NombreColonnes):
+                valRen.append([]) # Crée une colonne popur chaque boucle i
+                for j in range(self.NombreBriqueParLigne):
+                    brique = br.Brique(pCoordX=0+(j+briqueModele.taille["longueur"]), pCoordY=0+(i*briqueModele.taille["largeur"]), canvas=self.canvas, fenetre=self.fenetre)
+                    valRen[i].append(brique) # On append dans la colonne correspondante
         
         return valRen
+
 
     def obtenirBriquesRestantes(self):
         """
@@ -85,3 +102,11 @@ class Niveau():
 #     print("Gagné =",niveau.estGagne(), "après modif")
 
 # test()
+
+def test2():
+    niveau = Niveau(1, "classique", "Hello", "gg")
+    res = niveau.genererBriques()
+    print(res)
+    print(len(res))
+
+test2()

@@ -21,6 +21,7 @@ class Balle():
         self.DX = self.vitesse*ma.cos(self.angle)
         self.DY = self.vitesse*ma.sin(self.angle)
         self.affiche = canvas
+        self.canvas = self.affiche # alias pour self.affiche
         self.fenetre = fenetre
         self.joueur = joueur
         self.dep = False
@@ -93,11 +94,19 @@ class Balle():
         self.affiche.update()  # actualise le canvas
 
 
+
     def estCollisionJoueur(self):
         joueurCoordX1 = self.joueur.coordX
         joueurCoordX2 = self.joueur.coordX + 100
         joueurCoordY1 = self.joueur.coordY
         joueurCoordY2 = self.joueur.coordY + 20
+
+    def estCollisionJoueur(self, joueur):
+        """ joueurCoordX1 = joueur.coordX
+        joueurCoordX2 = joueur.coordX + 100
+        joueurCoordY1 = joueur.coordY
+        joueurCoordY2 = joueur.coordY + 20
+>>>>>>> fc92bcdf4b6028cea013a4170ca1f89795f34b5d
         valRen = False
 
         px = max(joueurCoordX1, min(self.coordX, joueurCoordX2)) # point le plus proche du cercle, dans le rectangle
@@ -105,9 +114,24 @@ class Balle():
 
         distCarre = (self.coordX-px) ** 2 + (self.coordY-py) ** 2 # distance euclidienne entre balle et rectangle
         if distCarre <= self.rayon ** 2:
+            valRen = True """
+
+
+        return self.affiche.find_overlapping(*self.affiche.coords(self))
+
+    def estCollisionBrique(self, brique):
+
+        """ briqueX1, briqueY1, briqueX2, briqueY2 = self.canvas.coords(brique) # coordonnées en haut à gauche, et en bas à droite de la brique
+        balleX1, balleY1, balleX2, balleY2 = self.canvas.coords(self) # Idem pour l'ellipse (le cercle)
+        if (briqueX1 < balleX2 and briqueX2 > balleX1 and briqueY1 < balleY2 and briqueY2 > balleY1):
+            valRen = True """ # obsolète ? Utiliser canvas.find_overlapping(*coordObjetQuiToucheNotreObjet)
+        
+        # si le tuple est vide, pas d'overlapping, sinon, overlapping (collision)           
+        return self.affiche.find_overlapping(*self.affiche.coords(self))
+
+    def toutesCollisions(self):
+        valRen = False
+        if self.estCollisionBrique(self) != () or self.estCollisionJoueur(self) == (1):
             valRen = True
 
         return valRen
-
-    def estCollisionBrique(self, brique):
-        pass
