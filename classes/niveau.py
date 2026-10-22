@@ -23,7 +23,7 @@ class Niveau():
         """
             Entrée(s) : -
             Sortie(s) : True/False (bool)
-            Algo : 
+            Algo :
         """
         valRen = True
         briquesRestantes = self.obtenirBriquesRestantes(self.briques)
@@ -45,19 +45,19 @@ class Niveau():
         """
 
         valRen = []
-        instances = [Brique(100*i, 20*i, 5*i, 10*i) for i in range(self.NombreBriqueApparaitre)] # dimensions en dur, à changer 
+        instances = [Brique(80*i, 20*i, self.canvas, self.fenetre) for i in range(self.NombreBriqueApparaitre)] # dimensions en dur, à changer 
         valRen = instances
         
         return valRen
 
-    def obtenirBriquesRestantes(self, pListe):
+    def obtenirBriquesRestantes(self):
         """
-            Entrée(s) : liste des briques (obj) et statut (int) (list)
-            Sortie(s) : briques restantes (int)
+            Entrée(s) : liste des briques (obj) et statut (int) - (list)
+            Sortie(s) : briques restantes (list)
             Algo : 
         """
 
-        liste = pListe.copy()
+        liste = self.briques.copy()
         valRen = []
         
         for brique in liste:
@@ -66,13 +66,13 @@ class Niveau():
 
         return valRen
 
-    def obtenirNombreBriquesRestantes(self, pListe):
+    def obtenirNombreBriquesRestantes(self):
         """
             Entrée(s) : -
             Sortie(s) : briques restantes (int)
             Algo : 
         """
-        return len(pListe)
+        return len(self.briques)
 
 
 

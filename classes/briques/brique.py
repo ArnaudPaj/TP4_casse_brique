@@ -6,10 +6,6 @@ A faire : Tout
 """
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 21697fc8033f85ec6dba37ad134f0e88e07c2204
 class Brique():
     def __init__(self, pCoordX, pCoordY, canvas, fenetre) -> None:
         self.durabilite = 1
@@ -57,15 +53,10 @@ class Brique():
         # travailler avec les dimensions
         # où est-ce qu'on prend notre origine ?
 
-<<<<<<< HEAD
-        if True:
-            pass
-=======
         briqueX1, briqueY1, briqueX2, briqueY2 = self.canvas.coords(self)
         balleX1, balleY1, balleX2, balleY2 = self.canvas.coords(balle)
         if (briqueX1 < balleX2 and briqueX2 > balleX1 and briqueY1 < balleY2 and briqueY2 > balleY1):
             valRen = True
->>>>>>> 21697fc8033f85ec6dba37ad134f0e88e07c2204
 
         return valRen
 
