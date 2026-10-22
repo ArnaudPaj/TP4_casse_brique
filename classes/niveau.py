@@ -59,9 +59,10 @@ class Niveau():
             for i in range(self.NombreColonnes):
                 valRen.append([]) # Crée une colonne popur chaque boucle i
                 for j in range(self.NombreBriqueParLigne):
-                    brique = br.Brique(pCoordX=0+(j+briqueModele.taille["longueur"]), pCoordY=0+(i*briqueModele.taille["largeur"]), canvas=self.canvas, fenetre=self.fenetre)
+                    brique = br.Brique(pCoordX=(j*briqueModele.taille["longueur"]), pCoordY=2*((i+1)*5)+(i*briqueModele.taille["largeur"]), canvas=self.canvas, fenetre=self.fenetre)
+                    brique.affiche()
                     valRen[i].append(brique) # On append dans la colonne correspondante
-        
+
         return valRen
 
 
@@ -103,10 +104,8 @@ class Niveau():
 
 # test()
 
-# def test2():
-#     niveau = Niveau(1, "classique", "Hello", "gg")
-#     res = niveau.genererBriques()
-#     print(res)
-#     print(len(res))
-
-# test2()
+def test2():
+    niveau = Niveau(1, "classique", "Hello", "gg")
+    res = niveau.genererBriques()
+    print(res)
+    print(len(res))

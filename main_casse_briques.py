@@ -40,6 +40,7 @@ class Main():
         self.score = 0
         self.immortel = False
         self.dif = 1 #Niveau de difficulté
+        self.niveau = ni.Niveau(self.dif, "classique", self.Jeu, self.ecran) # ID du niveau
         
         label_vie = tk.Label(self.Data, text = 'vie : 3', font= 'ROGFonts-Regular')
         label_vie.place(x=0,y=0)
@@ -47,6 +48,7 @@ class Main():
         label_score.place(x=820,y=0)
         boutonPartie = tk.Button(self.Data, text ='Nouvelle partie', font= 'ROGFonts-Regular', fg="green", command = self.start)
         boutonPartie.place(x=415,y=1000)
+        #boutonPartie.place(x=415,y=500) # pour test Ethan
         buttonQuitte = tk.Button(self.Data, text="Quitter", font= 'ROGFonts-Regular', fg="red", command=self.ecran.destroy)
         buttonQuitte.place(x=450,y=1040)
         
@@ -71,6 +73,7 @@ class Main():
         if touche_pressee == 'space':
             if self.partie:
                 print("Start casse brique")
+                self.Balle.placeBalle()
                 self.Balle.deplacement()
                 print("partie started")
                 print("DX :", self.Balle.DX)
@@ -93,8 +96,8 @@ class Main():
         if touche_pressee == 'm' :
             self.immortel = False
         
-        if touche_pressee == 'n' :
-            self.niveau +=1
+        """ if touche_pressee == 'n' :
+            self.niveau += 1 """
 
     def start(self):
         """
@@ -104,9 +107,8 @@ class Main():
         """
         # pour test 
         self.partie = True
-        self.Balle.placeBalle()
-        self.lBriques.append(br.Brique(100, 200, self.Jeu, self.ecran))
-        self.lBriques.append(br.Brique(160, 200, self.Jeu, self.ecran))
+        self.lBriques = self.niveau.briques
+        #print("self.briques", self.niveau.briques)
 
     def gameStatus(self):
         while perdu != True:
@@ -118,3 +120,7 @@ class Main():
     
     def Perdu(self):
         pass
+
+    def jouer(self):
+        self.start()
+        print(self.lBriques)
