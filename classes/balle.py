@@ -83,6 +83,6 @@ class Balle():
 
     def estCollisionBrique(self, brique):
         pass
-    
+
     def toutesCollisions(self):
         pass
