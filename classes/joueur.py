@@ -18,7 +18,7 @@ class Joueur():
         self.fenetre = fenetre
         self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+100, self.coordY+20, fill=self.couleur) # 100*20 px 
         
-# ============================ Mouvement ======================== #
+# ======================== Mouvement/Position =================== #
     def dep_gauche(self):
         if self.coordX > 11:
             self.coordX -= self.vitesse
@@ -32,6 +32,9 @@ class Joueur():
     def affiche(self):
         self.canvas.moveto(self.nom, self.coordX, self.coordY) # Nouveau deplacement
         self.canvas.update()  # actualise le canvas
+        
+    def position(self):
+        return self.coordX,self.coordY
         
 # ======================= gestion de la vie ===================== #
     def immortalite(self):

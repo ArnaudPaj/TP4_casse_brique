@@ -7,10 +7,7 @@ Jeu de casse-briques | classe Niveau
 A faire : Tout
 """
 
-
-
-from briques.brique import Brique
-from balle import Balle
+import classes.briques.brique as br
 
 class Niveau():
     def __init__(self, pNumero) -> None:
@@ -77,14 +74,14 @@ class Niveau():
 
 
 
-def test():
-    niveau = Niveau(1, 1)
-    briques = niveau.obtenirBriquesRestantes(niveau.briques)
-    print(briques)
-    print(niveau.obtenirNombreBriquesRestantes(briques), "brique restante")
-    print("\n\n\n")
-    print("Gagné =", niveau.estGagne())
-    briques[0].durabilite = 0
-    print("Gagné =",niveau.estGagne(), "après modif")
+# def test():
+#     niveau = Niveau(1, 1)
+#     briques = niveau.obtenirBriquesRestantes(niveau.briques)
+#     print(briques)
+#     print(niveau.obtenirNombreBriquesRestantes(briques), "brique restante")
+#     print("\n\n\n")
+#     print("Gagné =", niveau.estGagne())
+#     briques[0].durabilite = 0
+#     print("Gagné =",niveau.estGagne(), "après modif")
 
-test()
+# test()

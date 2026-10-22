@@ -16,7 +16,7 @@ class Balle():
         self.coordX = 500 # X du centre
         self.coordY = 900 # Y du centre
         self.couleur = "red"
-        self.vitesse = 8
+        self.vitesse = 4
         self.angle = rd.uniform(5/4*ma.pi, 7/4*ma.pi) # commence en allant vers les briques
         self.DX = self.vitesse*ma.cos(self.angle)
         self.DY = self.vitesse*ma.sin(self.angle)
@@ -24,7 +24,7 @@ class Balle():
         self.fenetre = fenetre
         self.nom = self.affiche.create_oval(self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY+self.rayon, fill=self.couleur)
         
-    def mouvement(self, nouvX, nouvY):
+    def mouvement(self):
         """
         entree : nouvX (int) / nouvY (int), nouvelle position de la balle
         sortie True / False, true si la balle est encore dans l'ecran
@@ -34,6 +34,9 @@ class Balle():
             self.coordX = nouvX
             self.coordY = nouvY
         self.fenetre.after(5, self.deplacement)
+    
+    def position(self):
+        return self.coordX,self.coordY
     
     def depMurs(self): # rebond sur les bords de l'ecran
     
@@ -58,7 +61,7 @@ class Balle():
         self.coordY += self.DY
         
         self.affiche.coords(self.nom, self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY + self.rayon) # affichage deplacement
-        self.fenetre.after(60, self.depMurs)
+        self.fenetre.after(20, self.depMurs)
 
     
 

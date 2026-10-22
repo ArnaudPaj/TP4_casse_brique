@@ -10,6 +10,7 @@ A faire : Tout
 import tkinter as tk
 import classes.balle as ba
 import classes.joueur as jo
+import classes.niveau as ni
 import classes.briques.brique as br
 
 class Main():
@@ -30,6 +31,7 @@ class Main():
         self.Data.pack(side="left")
         
         ### Donnee pour le jeu ###
+        self.partie = False
         self.lBriques = []
         self.Joueur = jo.Joueur(self.Jeu, self.ecran)
         self.Balle = ba.Balle(self.Jeu, self.ecran)
@@ -48,10 +50,10 @@ class Main():
         buttonQuitte.pack()
         
         self.Jeu.focus_set() # Demander le focus pour que la fenêtre capture les touches
-        self.Jeu.bind("<KeyPress>", lambda event: self.Clavier(event))
+        self.Jeu.bind("<KeyPress>", lambda event: self.clavier(event))
         self.ecran.mainloop() # execute la loop Tkinter
 
-    def Clavier(self,event):
+    def clavier(self,event):
         '''
         Permet de déplacer le joueur et les autres interactions 
         '''
@@ -66,8 +68,12 @@ class Main():
             self.Joueur.dep_droit()
             
         if touche_pressee == 'space':
-            self.Balle.depMurs()
-        
+            if self.partie:
+                self.Balle.depMurs()
+            else:
+                # jeu nb rebonds
+                self.Balle.depMurs()
+                
         if touche_pressee == 'i' :
             self.immortel = True
         
@@ -87,4 +93,12 @@ class Main():
                  genere les briques sur le terrain
         """
         # pour test 
+        self.partie = True
         self.lBriques.append(br.Brique(100, 200, self.Jeu, self.ecran))
+        
+    def gameStatus(self):
+        if self.vie == 0 :
+            self.perdu
+    
+    def Perdu(self):
+        pass

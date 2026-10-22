@@ -24,7 +24,6 @@ class Brique():
         self.canvas.update()  # actualise le canvas
 
 # ====================== VIE ===================== #
-
     def estVivant(self):
         """
             Entrée(s) : -
@@ -54,10 +53,13 @@ class Brique():
             valRen = True
         return valRen
 
-
-def BonnesPratiques():
-        """
-            Entrée(s) : 
-            Sortie(s) :
-            Algo : 
-        """
+    def position(self):
+        return self.coordX,self.coordY
+        
+# Pour les copier/coller en respectant les bonnes pratiques 
+# def BonnesPratiques():
+#         """
+#             Entrée(s) : 
+#             Sortie(s) :
+#             Algo : 
+#         """
