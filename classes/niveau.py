@@ -10,19 +10,14 @@ A faire : Tout
 import classes.briques.brique as br
 
 class Niveau():
-    def __init__(self, pNumero, motif, canvas, fenetre) -> None:
+    def __init__(self, pNumero, motif, canvas):
         self.numero = pNumero # sera constante par instance
-        self.NombreBriqueMax = 16*4 # codé en dur, nb max de briques sur l'ecran
+        self.NombreBriqueMax = 16*8 # codé en dur, nb max de briques sur l'ecran
         self.NombreBriqueParLigne = 960 // 60 # codé en dur, se référer à la taille d'une brique (normalisé)
-        self.NombreColonnes = self.NombreBriqueMax // self.NombreBriqueParLigne
+        self.NombreLigne = self.NombreBriqueMax // self.NombreBriqueParLigne
         self.NombreBriqueApparaitre = self.NombreBriqueMax # alias pour NombreBriqueMax
         self.motif = "classique" # codé en dur "classique", voir d'autres types
         self.canvas = canvas
-        self.fenetre = fenetre
-        self.briques = self.genererBriques() # instancie classe brique dans une liste, il y a NombreBriqueMax éléments dans la liste
-                
-        # self.tailleX = 3
-        # self.tailleY = 1
 
     def estGagne(self):
         """
@@ -46,23 +41,17 @@ class Niveau():
             Sortie(s) : -
             Algo :
         """
-
-        """valRen = []
-        instances = [Brique(80*i, 20*i, self.canvas, self.fenetre) for i in range(self.NombreBriqueApparaitre)] # dimensions en dur, à changer 
-        valRen = instances"""
-
         valRen = []
-        briqueModele = br.Brique(0, 0, self.canvas, self.fenetre)
-        print(self.motif)
+        n = 0
         if self.motif == "classique":
             # on va parcourir la liste comme une matrice
-            for i in range(self.NombreColonnes):
+            if self.numero+4 <= self.NombreLigne:
+                 n = self.numero+4
+            for i in range(n):
                 valRen.append([]) # Crée une colonne popur chaque boucle i
                 for j in range(self.NombreBriqueParLigne):
-                    brique = br.Brique(pCoordX=(j*briqueModele.taille["longueur"]), pCoordY=2*((i+1)*5)+(i*briqueModele.taille["largeur"]), canvas=self.canvas, fenetre=self.fenetre)
-                    brique.affiche()
+                    brique = br.Brique(pCoordX=(j*60), pCoordY=30+2*((i+1)*5)+(i*30), canvas=self.canvas) # brique de 60*30 px
                     valRen[i].append(brique) # On append dans la colonne correspondante
-
         return valRen
 
 
@@ -89,23 +78,3 @@ class Niveau():
             Algo : 
         """
         return len(self.briques)
-
-
-
-# def test():
-#     niveau = Niveau(1, 1)
-#     briques = niveau.obtenirBriquesRestantes(niveau.briques)
-#     print(briques)
-#     print(niveau.obtenirNombreBriquesRestantes(briques), "brique restante")
-#     print("\n\n\n")
-#     print("Gagné =", niveau.estGagne())
-#     briques[0].durabilite = 0
-#     print("Gagné =",niveau.estGagne(), "après modif")
-
-# test()
-
-def test2():
-    niveau = Niveau(1, "classique", "Hello", "gg")
-    res = niveau.genererBriques()
-    print(res)
-    print(len(res))

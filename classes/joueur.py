@@ -8,14 +8,12 @@ A faire : Tout
 """
 
 class Joueur():
-    def __init__(self,canvas,fenetre):
-        self.rayon = 10
+    def __init__(self,canvas):
         self.coordX = 450 # (Origine) coin haut à gauche
-        self.coordY = 940 # (Origine) coin haut à droite
+        self.coordY = 990 # (Origine) coin haut à droite
         self.couleur = "blue"
-        self.vitesse = 12
+        self.vitesse = 16
         self.canvas = canvas
-        self.fenetre = fenetre
         self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+100, self.coordY+20, fill=self.couleur, outline='black') # 100*20 px 
         
 # ======================== Mouvement/Position =================== #
@@ -25,7 +23,7 @@ class Joueur():
             self.affiche()
         
     def dep_droit(self):
-        if self.coordX < 971:
+        if self.coordX < 851:
             self.coordX += self.vitesse
             self.affiche()
             
@@ -34,13 +32,14 @@ class Joueur():
         self.canvas.update()  # actualise le canvas
         
     def position(self):
-        return self.coordX,self.coordY
+        return self.coordX,self.coordY,self.coordX+100,self.coordY+20
     
-    def placeJoueur(self):        
+    def reset(self):        
         self.coordX = 450 # X du centre
-        self.coordY = 940 # Y du centre
+        self.coordY = 990 # Y du centre
         self.affiche()
-        
+
+# en théorie passe dans le main -> gestion plus simple
 # ======================= gestion de la vie ===================== #
     def immortalite(self):
         self.vie = -1 # correspond à l'immortalite

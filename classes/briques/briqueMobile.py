@@ -11,7 +11,8 @@ from classes.briques.brique import Brique
 
 
 class BriqueMobile(Brique):
-    def __init__(self, pDurabilite, pPouvoir, pEffets, pMobile) -> None:
-        self.durabilite = 1
-        self.taille = "TBD" # To Be Determined
+    def __init__(self, pDurabilite = None, pPouvoir = None, pEffets = None, pMobile):
+        # taille & durabilite sont herite de brique
+        self.mobile = True
+        self.tracer = pMobile # 2 coordonnees (haut gauche) entre lesquelles la brique se deplacera
 

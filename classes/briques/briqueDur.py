@@ -23,7 +23,19 @@ from classes.briques.brique import Brique
 
 
 class BriqueDur(Brique):
-    def __init__(self, pDurabilite, pPouvoir, pEffets, pMobile) -> None:
-        self.durabilite = 1
-        self.taille = "TBD" # To Be Determined
+    def __init__(self, pDurabilite, pPouvoir = None, pEffets = None, pMobile = None):
+        # taille est herite de brique
+        self.durabilite = pDurabilite
+        
+    def hit(self):
+        """Retire un point de résistance."""
+        self.durabilite -= 1
+
+        if self.durabilite <= 0:
+            self.destroy()
+            return True
+
+        self.canvas.itemconfig(self.nom, fill=self.COLORS.get(self.durabilite, "#9b5de5"))
+        self.canvas.itemconfig(self.label, text=str(self.durabilite if self.durabilite > 1 else "")
+        return False
 

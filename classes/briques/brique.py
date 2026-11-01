@@ -9,16 +9,13 @@ A faire : Tout
 
 
 class Brique():
-    def __init__(self, pCoordX, pCoordY, canvas, fenetre) -> None:
+    def __init__(self, pCoordX, pCoordY, canvas):
         self.durabilite = 1
-        self.taille = {"longueur":60,
-                       "largeur":20} # en dur
+        self.vivant = True
         self.coordX = pCoordX 
         self.coordY = pCoordY
-        self.couleur = "white"  # code en dur
         self.canvas = canvas
-        self.fenetre = fenetre
-        self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+60, self.coordY+10, fill=self.couleur, outline="black", width=10) # 60*30 px
+        self.nom = self.canvas.create_rectangle(self.coordX, self.coordY, self.coordX+60, self.coordY+30, fill="firebrick4", outline="black", width=2) # 60*30 px
         self.canvas.update()  # actualise le canvas
 
 # ====================== VIE ===================== #
@@ -28,18 +25,38 @@ class Brique():
             Sortie(s) : True/False (bool)
             Algo : 
         """
-        valRen = False
-        if self.durabilite != 0:
-             valRen = True
-        return valRen
-
+        return self.vivant
+    
+    def touche(self):
+        """Retire un point de résistance."""
+        self.durabilite -= 1
+        if self.durabilite <= 0:
+            self.detruit()
+            return True
+        self.canvas.itemconfig(self.nom,fill=self.COLORS.get(self.durabilite, "#9b5de5"))
+        self.canvas.itemconfig(self.label,text=str(self.durabilite) if self.durabilite > 1 else "")
+        return False
+    
+    def detruit(self):
+        if self.durabilite == 0:
+            self.canvas.delete(self.nom)
+            self.canvas.update()
+            self.vivant = False
+            
 # ====================== COLLISIONS ===================== #
+
+    def position(self):
+        return self.coordX, self.coordY, self.coordX+60, self.coordY+30
+        # ou return self.canvas.coords(self.id)
+    
+      
+""" Geree dans le main
     def EstCollisionBalle(self, balle):
-        """
-            Entrée(s) : Collision balle/brique
+        
+            Entrée(s) : la balle
             Sortie(s) : True/False (Bool)
-            Algo : 
-        """
+            Algo : Collision balle/brique
+        
         valRen = False
         # travailler avec les dimensions
         # où est-ce qu'on prend notre origine ?
@@ -50,19 +67,19 @@ class Brique():
             valRen = True
 
         return valRen
+"""
 
-    def position(self):
-        return self.coordX, self.coordY
 
-    def affiche(self):
-        self.canvas.moveto(self.nom, self.coordX, self.coordY) # Nouveau deplacement
-        self.canvas.update()  # actualise le canvas
-        print("La brique ?")
 
-# Pour les copier/coller en respectant les bonnes pratiques 
-# def BonnesPratiques():
-#         """
-#             Entrée(s) : 
-#             Sortie(s) :
-#             Algo : 
-#         """
+
+
+
+
+
+
+
+
+
+
+
+    

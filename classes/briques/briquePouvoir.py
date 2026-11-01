@@ -11,8 +11,8 @@ from classes.briques.brique import Brique
 
 
 class BriquePouvoir(Brique):
-    def __init__(self, pPouvoir, pEffets, pMobile) -> None:
+    def __init__(self, pPouvoir, pEffets, pMobile):
+        # taille est herite de brique
         self.durabilite = 1
-        self.taille = "TBD" # To Be Determined
         self.pouvoir = pPouvoir
 

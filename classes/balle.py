@@ -6,61 +6,65 @@ Created on Wed Sep 23 15:02:28 2026
 Jeu de casse-briques | classe Balle
 A faire : Tout
 """
-
-import random as rd
 import math as ma
+import random as ran
 
-class Balle():
-    def __init__(self, canvas, fenetre, joueur) -> None:
+class Balle:
+    def __init__(self, canvas):
         self.rayon = 10
         self.coordX = 500 # X du centre
         self.coordY = 900 # Y du centre
-        self.couleur = "red"
-        self.vitesse = 4
-        self.angle = rd.uniform(5/4*ma.pi, 7/4*ma.pi) # commence en allant vers les briques
-        self.DX = self.vitesse*ma.cos(self.angle)
-        self.DY = self.vitesse*ma.sin(self.angle)
-        self.affiche = canvas
-        self.canvas = self.affiche # alias pour self.affiche
-        self.fenetre = fenetre
-        self.joueur = joueur
-        self.dep = False # condition permettant d'arreter le deplacement au moment ou l'on reset la balle
-        self.nom = self.affiche.create_oval(self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY+self.rayon, fill=self.couleur)
-        self.affiche.update()  # actualise le canvas
-        
-        
-    def position(self):
-        return self.coordX,self.coordY
-    
-    def placeBalle(self):
-        """ Reset des donnees de la balle """
-        self.coordX = 500 # X du centre
-        self.coordY = 900 # Y du centre
-        self.dep = False
-        print("dep = Faux")
-        """ deplace la balle """
-        self.affiche.coords(self.nom, self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY + self.rayon)
-        self.affiche.update()  # actualise le canvas
+        self.canvas = canvas
+        self.dx = 4
+        self.dy = -4
+        self.vitesse = 6
+        self.nom = self.canvas.create_oval(self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY+self.rayon,fill="red")
+
+    def affiche(self):
+        self.canvas.update()  # actualise le canvas
         
     def deplacement(self):
-        """
-        entree : None
-        sortie True / False, true si la balle est encore dans l'ecran
+        self.canvas.move(self.nom, self.dx, self.dy)
+        self.canvas.update()  # actualise le canvas
         
-        """
+    def position(self):
+        # return self.coordX,self.coordY ou
+        return self.canvas.coords(self.nom)
+
+    def rebonfHorizontal(self):
+        self.dx = -self.dx
+
+    def rebondVertical(self):
+        self.dy = -self.dy
+
+    def reset(self): # ancien placeBalle
+        """Replace la balle au-dessus de la raquette."""
+        self.canvas.coords(self.nom, 500-self.rayon, 900-self.rayon, 500+self.rayon, 900+self.rayon)
+        angle = ran.uniform(ma.pi, 2*ma.pi)
+        self.dx = self.vitesse*ma.cos(angle)
+        self.dy = self.vitesse*ma.sin(angle)
+    
+    """ Passe dans le main -> plus propre et aiser pour le reste
+    def deplacement(self):
         self.coordX += self.DX
         self.coordY += self.DY
         self.rebondMurs()
         
         if self.estCollisionJoueur(self.joueur):
             self.rebondJoueur()
+
+        if self.estCollisionBrique():
+             self.rebondBrique()    
+
+        if self.coordY > 1080:
+            self.dep = False
+            # supprime la balle
+            # retire une vie
+            # remet la balle au centre
+            # attend un espace
             
-        # elif self.estCollisionBrique():
-        #     self.rebondBrique()    
-        
         if self.dep:
             self.affichage()
-            print("ca déplace....", self.nom)
             self.fenetre.after(25, self.deplacement)
     
     def rebondMurs(self): # rebond sur les bords de l'ecran
@@ -86,22 +90,14 @@ class Balle():
         self.coordY += self.DY
 
     def rebondJoueur(self):
-        if self.coordY + self.rayon + self.DY > 950 : 
-            self.coordY = 2 * (960 - self.rayon) - self.coordY
-            self.DY = -self.DY
+        self.DY = -self.DY
         self.coordX += self.DX
         self.coordY += self.DY
         
     def rebondBrique(self):
+        self.DY = -self.DY
         self.coordX += self.DX
         self.coordY += self.DY
-            
-        
-    def affichage(self):
-        self.affiche.coords(self.nom, self.coordX-self.rayon, self.coordY-self.rayon, self.coordX+self.rayon, self.coordY + self.rayon) # affichage deplacement
-        self.affiche.update()  # actualise le canvas
-
-
 
     def estCollisionJoueur(self, joueur):
         joueurCoordX1 = self.joueur.coordX
@@ -115,21 +111,17 @@ class Balle():
         distCarre = (self.coordX-px) ** 2 + (self.coordY-py) ** 2 # distance euclidienne entre balle et rectangle
         if distCarre <= self.rayon ** 2:
             valRen = True 
-        
         return valRen
 
-    def estCollisionBrique(self, brique):
-
-        """ briqueX1, briqueY1, briqueX2, briqueY2 = self.canvas.coords(brique) # coordonnées en haut à gauche, et en bas à droite de la brique
-        balleX1, balleY1, balleX2, balleY2 = self.canvas.coords(self) # Idem pour l'ellipse (le cercle)
-        if (briqueX1 < balleX2 and briqueX2 > balleX1 and briqueY1 < balleY2 and briqueY2 > balleY1):
-            valRen = True """ # obsolète ? Utiliser canvas.find_overlapping(*coordObjetQuiToucheNotreObjet)
-            
-        # si le tuple est vide, pas d'overlapping, sinon, overlapping (collision)  
-        return self.affiche.find_overlapping(*self.affiche.coords(self))
-
-    def toutesCollisions(self):
+    def estCollisionBrique(self):
         valRen = False
-        if self.estCollisionBrique() != () or self.estCollisionJoueur(self.joueur) == (1):
-            valRen = True
+        print(lBriques)
+        # briqueX1, briqueY1, briqueX2, briqueY2 = self.canvas.coords(brique) # coordonnées en haut à gauche, et en bas à droite de la brique
+        # balleX1, balleY1, balleX2, balleY2 = self.canvas.coords(self) # Idem pour l'ellipse (le cercle)
+        
+        # if (briqueX1 < balleX2 and briqueX2 > balleX1 and briqueY1 < balleY2 and briqueY2 > balleY1):
+        #     valRen = True 
         return valRen
+    
+    """
+
