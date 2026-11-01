@@ -25,9 +25,13 @@ Pour jouer au jeu, lancez le fichier lanceur.py.
 # Informations sur les codes triches :
 - Appuyez sur i pour devenir immortel (appuyez sur m pour arrêter ce code triche)
 - Appuyez sur n pour passer au niveau suivant (en développement)
+- Appuyez sur g pour passer en mode garder la balle (en développement)
 
 # Information CAPITALE :
 - Pensez à bien vous amuser lors de vos parties et bonne chance ;)
+
+# Commentaire des développeurs : 
+- bug, si on click plusieurs fois sur le bouton "start game" la balle accélaire
 
 # Améliorations possibles :
  - Introduire les briques bonus

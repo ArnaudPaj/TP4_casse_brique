@@ -176,7 +176,8 @@ class Main():
     def next_level(self):
         self.niveau.numero += 1
         self.niv += 1         
-        self.niveau.genererBriques()
+        self.lBriques = []
+        self.lBriques = self.niveau.genererBriques()
     
     def finPartie(self,message):
         self.partie = False
@@ -249,13 +250,16 @@ class Main():
 
     def recommencer(self):
         self.vie = 3
-        self.label_vie.config(text=f"Vies : {self.vie}")
         self.score = 0
+        self.label_vie.config(text=f"Vies : {self.vie}")
         self.label_score.config(text=f"Score : {self.score}")
         self.niv = 1
-        self.lBriques = []
-        self.Jeu.delete(all)
+        self.niveau.numero = 1
+        self.Jeu.delete('all')
         self.Jeu.update()
+        self.lBriques = []
+        self.Balle = ba.Balle(self.Jeu)
+        self.Joueur = jo.Joueur(self.Jeu)
         self.jeuCasseBrique()
                
 """ A adapter 
