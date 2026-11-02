@@ -66,7 +66,8 @@ class Main():
 
     def clavier(self,event):
         '''
-        Permet de déplacer le joueur et les autres interactions 
+        Ecoute des touche presser
+        Permet de demarrer les differentes interactions 
         '''
         touche_pressee = event.keysym
         if touche_pressee == 'Escape':
@@ -103,25 +104,30 @@ class Main():
         
         if touche_pressee == 'n' :
             self.niveau += 1
-
+"""
     def jeuGardeBalle(self):
         self.Joueur.reset()
         self.Balle.reset()
         if self.rebondRaquette():
             print("score +1")
-
+"""
     # --------------------------------------------------
     # COLLISIONS
     # --------------------------------------------------
 
     def intersects(self, a, b):
+        """
+        Gere les intersections entre 2 objets
+        """
         if a[0] <= b[2] and a[2] >= b[0] and a[1] <= b[3] and a[3] >= b[1] :
             return True
         return False
 
     def rebondMurs(self):
+        """
+        Gere le rebond entre la balle et les murs
+        """
         x1, y1, x2, y2 = self.Balle.position()
-
         if x1 <= 0 and self.Balle.dx < 0:
             self.Balle.rebonfHorizontal()
         elif x2 >= 950  and self.Balle.dx > 0:
@@ -131,6 +137,9 @@ class Main():
             self.Balle.rebondVertical()
 
     def rebondRaquette(self):
+        """
+        Gere le rebond entre la balle et la raquette du joueur
+        """
         coordBalle = self.Balle.position()
         coordJoueur = self.Joueur.position()
         if self.intersects(coordBalle, coordJoueur) and self.Balle.dy > 0:
@@ -141,6 +150,9 @@ class Main():
             self.Balle.rebondVertical()
 
     def rebondBriques(self):
+        """
+        Gere le rebond entre la balle et les briques
+        """
         coordBalle = self.Balle.position()
         for briques in self.lBriques:
             for brique in briques:
@@ -170,27 +182,36 @@ class Main():
 
         
     def actuScore(self):
+        """
+        Vient modifier le score et actualise son affichage
+        """
         self.score += 10     
         self.label_score.config(text=f"Score : {self.score}")
         
     def next_level(self):
+        """
+        Permet de passer au niveau suivant et l'afficher
+        """
         self.niveau.numero += 1
         self.niv += 1         
         self.lBriques = []
         self.lBriques = self.niveau.genererBriques()
     
     def finPartie(self,message):
+        """
+        Lors d'un game over réalise l'affichage du message de fin
+        """
         self.partie = False
         self.Jeu.delete("end_message")
-
         self.Jeu.create_rectangle(180, 410, 720, 690,fill="#202038",outline="white",width=2,tags="end_message")
-
         self.Jeu.create_text(450, 545,text=message,fill="white",font=("Arial", 28, "bold"),tags="end_message")
-        
         self.Jeu.create_text(450, 590,text=f'Score : {self.score}',fill="#ffca3a",font=("Arial", 18),tags="end_message")
 
     
     def viePerdu(self):
+        """
+        Retire une vie et actualise son affichage
+        """
         if self.immortel:
             self.Balle.reset()
             self.Joueur.reset()
@@ -205,11 +226,14 @@ class Main():
             self.Joueur.reset()
                 
     def activePause(self):
+        """
+        Vient stoper le mouvement de la balle 
+        """
         self.pause = not self.pause
 
         if self.pause:
             self.Jeu.delete("pause")
-            self.Jeu.create_text(350, 300,text="PAUSE",fill="white",font=("Arial", 28, "bold"),tags="pause")
+            self.Jeu.create_text(450, 500,text="PAUSE",fill="white",font=("Arial", 28, "bold"),tags="pause")
         else:
             self.Jeu.delete("pause")
                 
@@ -248,51 +272,10 @@ class Main():
 
         self.Jeu.after(10, self.jeuCasseBrique)
 
-    def recommencer(self):
-        self.vie = 3
-        self.score = 0
-        self.label_vie.config(text=f"Vies : {self.vie}")
-        self.label_score.config(text=f"Score : {self.score}")
-        self.niv = 1
-        self.niveau.numero = 1
-        self.Jeu.delete('all')
-        self.Jeu.update()
-        self.lBriques = []
-        self.Balle = ba.Balle(self.Jeu)
-        self.Joueur = jo.Joueur(self.Jeu)
-        self.jeuCasseBrique()
-               
-""" A adapter 
-    # --------------------------------------------------
-    # SAUVEGARDE JSON
-    # --------------------------------------------------
+    def recommencer(self):    
+        """
+        Détruit la page et en rouvre une
+        """
+        self.ecran.destroy()
+        self.__init__()
 
-    def load_high_score(self):
-        try:
-            with open(self.HIGH_SCORE_FILE, "r", encoding="utf-8") as file:
-                data = json.load(file)
-                return max(0, int(data.get("best_score", 0)))
-        except (FileNotFoundError, json.JSONDecodeError,
-                ValueError, TypeError, OSError):
-            return 0
-
-    def save_high_score(self):
-        try:
-            with open(self.HIGH_SCORE_FILE, "w", encoding="utf-8") as file:
-                json.dump(
-                    {"best_score": self.best_score},
-                    file,
-                    indent=4
-                )
-        except OSError:
-            print("Impossible de sauvegarder le meilleur score.")
-
-    def actuScore(self, points):
-        self.score += points
-
-        if self.score > self.best_score:
-            self.best_score = self.score
-            self.save_high_score()
-
-        self.update_hud()
-"""

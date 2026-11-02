@@ -49,37 +49,3 @@ class Brique():
         return self.coordX, self.coordY, self.coordX+60, self.coordY+30
         # ou return self.canvas.coords(self.id)
     
-      
-""" Geree dans le main
-    def EstCollisionBalle(self, balle):
-        
-            Entrée(s) : la balle
-            Sortie(s) : True/False (Bool)
-            Algo : Collision balle/brique
-        
-        valRen = False
-        # travailler avec les dimensions
-        # où est-ce qu'on prend notre origine ?
-
-        briqueX1, briqueY1, briqueX2, briqueY2 = self.canvas.coords(self) # coordonnées en haut à gauche, et en bas à droite de la brique
-        balleX1, balleY1, balleX2, balleY2 = self.canvas.coords(balle) # Idem pour l'ellipse (le cercle)
-        if (briqueX1 < balleX2 and briqueX2 > balleX1 and briqueY1 < balleY2 and briqueY2 > balleY1):
-            valRen = True
-
-        return valRen
-"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
